@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mock Exam</title>
+</head>
+<body>
+
+<h2>Mock Exam</h2>
+<p id="timer">Time Left: 10:00</p>
+
+<form id="examForm">
+  <p>1. Capital of Nigeria?</p>
+  <label><input type="radio" name="q1" value="A"> Lagos</label><br>
+  <label><input type="radio" name="q1" value="B"> Abuja</label><br>
+
+  <p>2. 2 + 2 = ?</p>
+  <label><input type="radio" name="q2" value="A"> 3</label><br>
+  <label><input type="radio" name="q2" value="B"> 4</label><br>
+
+  <br>
+  <button type="submit">Submit</button>
+</form>
+
+<p id="result"></p>
+
+<script>
+let time = 600;
+
+let timer = setInterval(() => {
+  let m = Math.floor(time / 60);
+  let s = time % 60;
+  document.getElementById("timer").innerText =
+    `Time Left: ${m}:${s < 10 ? "0" : ""}${s}`;
+  time--;
+
+  if (time < 0) submitExam();
+}, 1000);
+
+document.getElementById("examForm").onsubmit = e => {
+  e.preventDefault();
+  submitExam();
+};
+
+function submitExam() {
+  clearInterval(timer);
+  let score = 0;
+  if (examForm.q1.value === "B") score++;
+  if (examForm.q2.value === "B") score++;
+  document.getElementById("result").innerText =
+    `Submitted! Score: ${score}/2`;
+}
+</script>
+
+</body>
+           </html>
